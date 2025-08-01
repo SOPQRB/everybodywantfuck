@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1f2d, #2d374b);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #e0e0e0;
+        }
+        
+        .container {
+            background: rgba(25, 30, 45, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 900px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid #3a475c;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 装饰元素 */
+        .corner-decoration {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 3px solid #4a9bff;
+            opacity: 0.1;
+        }
+        
+        .corner-1 {
+            top: -75px;
+            right: -75px;
+            transform: rotate(45deg);
+        }
+        
+        .corner-2 {
+            bottom: -75px;
+            left: -75px;
+            transform: rotate(45deg);
+        }
+        
+        header {
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(74, 155, 255, 0.7);
+        }
+        
+        h1 .game-icon {
+            color: #4a9bff;
+            margin-right: 15px;
+        }
+        
+        .subtitle {
+            color: #9ab;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .links-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .link-card {
+            background: linear-gradient(145deg, #2a3142, #1f2535);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            padding: 30px 25px;
+            width: 230px;
+            transition: all 0.3s ease;
+            border: 2px solid #3a475c;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+        
+        .link-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            border-color: #4a9bff;
+        }
+        
+        .link-card:hover .file-icon {
+            transform: scale(1.1) rotate(5deg);
+            color: #6bb1ff;
+        }
+        
+        .file-icon {
+            font-size: 4.5rem;
+            color: #4a9bff;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 15px rgba(74, 155, 255, 0.5);
+        }
+        
+        .file-name {
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #4a9bff, #2a6fd6);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(74, 155, 255, 0.6);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            color: #789;
+            font-size: 0.9rem;
+            border-top: 1px solid #3a475c;
+            padding-top: 20px;
+        }
+        
+        /* 动画背景元素 */
+        .bg-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(74, 155, 255, 0.05);
+            animation: float 15s infinite linear;
+        }
+        
+        .bg-element:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            top: 10%;
+            left: 5%;
+            animation-duration: 20s;
+        }
+        
+        .bg-element:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            top: 60%;
+            left: 80%;
+            animation-duration: 15s;
+            animation-direction: reverse;
+        }
+        
+        .bg-element:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            top: 80%;
+            left: 15%;
+            animation-duration: 25s;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, 40px) rotate(90deg); }
+            50% { transform: translate(100px, 0px) rotate(180deg); }
+            75% { transform: translate(50px, -40px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .links-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 25px;
+            }
+            
+            .link-card {
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 背景动画元素 -->
+        <div class="bg-elements">
+            <div class="bg-element"></div>
+            <div class="bg-element"></div>
+            <div class="bg-element"></div>
+        </div>
+        
+        <!-- 角装饰 -->
+        <div class="corner-decoration corner-1"></div>
+        <div class="corner-decoration corner-2"></div>
+        
+        <header>
+            <h1><i class="fas fa-gamepad game-icon"></i> 游戏页面导航</h1>
+            <p class="subtitle">为了方便直接使用Deepseek生成:D 访问神秘Github仓库里的网页版MC立即开玩</p>
+        </header>
+        
+        <div class="links-container">
+            <div class="link-card">
+                <i class="fas fa-gamepad file-icon"></i>
+                <div class="file-name">1.5.2挂端[半汉化]</div>
+                <button class="btn" onclick="window.open('1.html', '_blank')">
+                    启动游戏
+                </button>
+            </div>
+            
+            <div class="link-card">
+                <i class="fas fa-gamepad file-icon"></i>
+                <div class="file-name">1.5.2原版端[IMC全汉化]</div>
+                <button class="btn" onclick="window.open('2.html', '_blank')">
+                    启动游戏
+                </button>
+            </div>
+            
+            <div class="link-card">
+                <i class="fas fa-gamepad file-icon"></i>
+                <div class="file-name">1.8原版端</div>
+                <button class="btn" onclick="window.open('3.html', '_blank')">
+                    启动游戏
+                </button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>GitHub游戏页面导航器 | 快速访问您的HTML游戏文件</p>
+        </div>
+    </div>
+</body>
+</html>
